@@ -1,0 +1,9 @@
+langgraph
+langchain
+openai
+tiktoken
+python-dotenv
+httpx
+numpy
+scikit-learn
+sentence-transformers
