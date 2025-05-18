@@ -1,0 +1,9 @@
+{
+  "prompt": "What is the difference between synchronous and asynchronous programming in Python?",
+  "ground_truth": "In synchronous programming, tasks are executed one at a time in sequence — the next task waits for the current one to finish. In asynchronous programming, tasks can be paused and resumed, allowing others to run concurrently without blocking the main thread. In Python, this is typically handled using the `async` and `await` keywords, and frameworks like `asyncio`. Async code can handle I/O-bound tasks more efficiently but does not run in parallel unless combined with multithreading or multiprocessing.",
+  "model": "gpt-4o",
+  "metadata": {
+    "use_case": "technical explanation",
+    "ground_truth_type": "text"
+  }
+}
