@@ -40,11 +40,11 @@ Built using [LangGraph](https://github.com/langchain-ai/langgraph), the project 
 - [x] Config-driven architecture via `config.yaml`
 - [x] Hallucination detection via LLM-as-a-Judge (OpenAI)
 - [x] JSON prompt ingestion for modular test cases
+- [x] Add hallucination detection via embedding similarity
+- [x] Telemetry logging agent (latency, token usage, verdicts)
 
 ### 🔜 In Progress / Planned
-- [ ] Add hallucination detection via embedding similarity
 - [ ] Add Vectara hallucination evaluation model (Hugging Face)
-- [ ] Telemetry logging agent (latency, token usage, verdicts)
 - [ ] Evaluation metrics agent (tone, coherence, completeness scoring)
 - [ ] CLI or batch runner for test prompt files
 - [ ] Result logger (to JSONL or CSV)
