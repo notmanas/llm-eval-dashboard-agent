@@ -15,24 +15,6 @@ Built using [LangGraph](https://github.com/langchain-ai/langgraph), the project 
 - 📊 Tracks tokens, latency, model version, and evaluation scores
 
 ---
-
-# 🧠 LLM Evaluation Dashboard Agent
-
-This is an agentic, graph-based framework for evaluating the outputs of Large Language Models (LLMs) using hallucination detection techniques.
-
-Built using [LangGraph](https://github.com/langchain-ai/langgraph), the project orchestrates a flow of evaluation agents that process prompts, generate responses, assess hallucination risk, and log results in a configurable, scalable pipeline.
-
----
-
-## 🚀 Features
-
-- 🧱 Agent-based modular design using LangGraph
-- ✅ Multiple hallucination detection methods (LLM-as-a-Judge first, more coming)
-- ⚙️ Configurable via `config.yaml`
-- 🧪 Load test prompts and ground truths from JSON files
-- 📊 Tracks tokens, latency, model version, and evaluation scores
-
----
 ## 🧪 Example Test Case
 
 ```json
