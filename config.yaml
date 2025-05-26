@@ -3,8 +3,12 @@ openai:
   temperature: 0.7
 
 hallucination:
-  method: llm_judge
+  method: embedding  # options: llm_judge, embedding, vectara
 
 metadata:
   use_case: technical explanation
   ground_truth_type: text
+
+embedding:
+  model: text-embedding-3-small
+  provider: openai   # future: sbert, etc.

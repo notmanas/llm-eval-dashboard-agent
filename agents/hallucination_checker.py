@@ -8,6 +8,8 @@ import os
 import re
 import json
 
+from utils.embedding_utils import get_embedding, cosine_similarity
+
 # Load config.yaml once
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "../config.yaml")
 with open(CONFIG_PATH, "r") as f:
@@ -22,6 +24,28 @@ def clean_json_output(text: str) -> str:
     cleaned = re.sub(r"^```\n?", "", cleaned)
     cleaned = re.sub(r"```$", "", cleaned)
     return cleaned.strip()
+
+
+def hallucination_embedding(prompt, response, ground_truth):
+    response_emb = get_embedding(response)
+    truth_emb = get_embedding(ground_truth)
+    sim = cosine_similarity(response_emb, truth_emb)
+    threshold = 0.8
+    verdict = "faithful" if sim >= threshold else "hallucinated"
+    return {
+        "hallucination_score": float(sim),
+        "verdict": verdict,
+        "details": {"cosine_similarity": float(sim)}
+    }
+
+
+def hallucination_vectara(prompt, response, ground_truth):
+    # TODO: Implement Vectara or other method
+    return {
+        "hallucination_score": 0.72,  # Example score based on Vectara analysis
+        "verdict": "POSSIBLE_HALLUCINATION",  # Example verdict
+        "details": {}  # Example details, could include Vectara-specific info
+    }
 
 
 def hallucination_llm_judge(prompt: str, response: str, ground_truth: str) -> Dict:
@@ -75,11 +99,25 @@ def hallucination_checker_node(state: EvalState) -> EvalState:
             response=state["response"],
             ground_truth=state["ground_truth"]
         )
-        return {
-            **state,
-            "hallucination_score": result.get("hallucination_score"),
-            "hallucination_verdict": result.get("verdict"),
-            "hallucination_debug": result  # Optional: keep raw output for debugging
-        }
+    elif method == "embedding":
+        result = hallucination_embedding(
+            prompt=state["prompt"],
+            response=state["response"],
+            ground_truth=state["ground_truth"]
+        )
+    elif method == "vectara":
+        result = hallucination_vectara(
+            prompt=state["prompt"],
+            response=state["response"],
+            ground_truth=state["ground_truth"]
+        )
     else:
         raise NotImplementedError(f"Hallucination method '{method}' not implemented.")
+
+    return {
+        **state,
+        "hallucination_score": result.get("hallucination_score"),
+        "hallucination_verdict": result.get("verdict"),
+        "hallucination_debug": result  # Optional: keep raw output for debugging
+    }
+
